@@ -29,6 +29,8 @@ Filename | Description
 
 If you're planning to run a GitHub Copilot workshop, please review the [workshop guide](</.instructions/workshop organisers.md>) for tips and tricks to help you run a successful workshop. 
 
+Just a change
+
 
 ## Project Structure
 

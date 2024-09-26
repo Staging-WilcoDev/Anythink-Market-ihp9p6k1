@@ -17,7 +17,6 @@ Participants will be guided to install the GitHub Copilot VS Code extension, and
 
 Inside the `.instructions` folder you will find a number of markdown files that contain the instructions for this workshop.
 
-
 Filename | Description
 --- | ---
 [1. setup.md](</.instructions/1. setup.md>) | Instructions for installing the GitHub Copilot VS Code extension and joining the GitHub Copilot trial.

@@ -1,5 +1,7 @@
 # GitHub Copilot Workshop
 
+different change
+
 ## Enhance a Node Calculator app using GitHub Copilot
 
 <img width="400" alt="Node Calculator image" src="./assets/Node%20calculator%20image.png">

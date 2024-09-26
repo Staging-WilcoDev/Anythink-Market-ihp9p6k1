@@ -17,7 +17,6 @@ Participants will be guided to install the GitHub Copilot VS Code extension, and
 
 Inside the `.instructions` folder you will find a number of markdown files that contain the instructions for this workshop.
 
-unrelated change
 
 Filename | Description
 --- | ---

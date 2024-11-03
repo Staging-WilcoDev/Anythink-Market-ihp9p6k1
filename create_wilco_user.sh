@@ -1,20 +1,27 @@
 #!/bin/bash
 
-# Get the default region from AWS CLI configuration
-region=$(aws configure get region)
+# Variables
+SERVICE_ACCOUNT_NAME="wilco"
+DESCRIPTION="Verify wilco actions"
+DISPLAY_NAME="Wilco"
+PROJECT_ID=$(gcloud config get-value project)
+ROLE="roles/storage.admin"
+KEY_FILE_PATH="/tmp/wilco_creds.json"  
 
-# Step 1: Create the IAM user
-aws iam create-user --user-name wilco
+# Create the service account
+gcloud iam service-accounts create $SERVICE_ACCOUNT_NAME \
+  --description="$DESCRIPTION" \
+  --display-name="$DISPLAY_NAME"
 
-# Step 2: Create access key for the user and capture the output
-output=$(aws iam create-access-key --user-name wilco)
+# Assign the role to the service account
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --role="$ROLE"
 
-# Extract AccessKeyId and SecretAccessKey from the output
-AccessKeyId=$(echo $output | jq -r '.AccessKey.AccessKeyId')
-SecretAccessKey=$(echo $output | jq -r '.AccessKey.SecretAccessKey')
+# Generate the key file for the service account
+gcloud iam service-accounts keys create $KEY_FILE_PATH \
+  --iam-account "${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 
-# Step 3: Attach the AmazonS3ReadOnlyAccess policy to the user
-aws iam attach-user-policy --user-name wilco --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
-
-# Print the Access Key ID, Secret Access Key, and Region in the specified format
-echo "Your credentials are: $AccessKeyId:$SecretAccessKey:$region"
+# Display the key file content
+echo "Service account key file content:"
+cat $KEY_FILE_PATH

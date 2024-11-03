@@ -1,14 +1,10 @@
 {
-  "name": "AWS playground",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "name": "GCP playground",
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:0-ubuntu-20.04",
   "features": {
-    "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/sshd:1": {
       "version": "latest"
-    },
-    "ghcr.io/devcontainers/features/aws-cli:1": {}
+    }
   },
   "settings": {
     "extensions.ignoreRecommendations": true,
@@ -18,5 +14,6 @@
     "workbench.welcomePage.walkthroughs.openOnInstall": false,
     "workbench.welcomePage.experimental.videoTutorials": "off",
     "github.codespaces.defaultExtensions": []
-  }
+  },
+  "postStartCommand": "bash -c .devcontainer/setup.sh"
 }

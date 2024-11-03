@@ -1,2 +1,2 @@
-# aws-playground
-AWS playground 
+# gcp-playground
+GCP playground 

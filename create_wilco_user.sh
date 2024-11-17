@@ -22,6 +22,8 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 gcloud iam service-accounts keys create $KEY_FILE_PATH \
   --iam-account "${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 
+gcloud services enable dataflow.googleapis.com
+
 credentials="`cat $KEY_FILE_PATH`"
 stringified_credentials="$(echo "$credentials" | jq -R -s .)"
 
@@ -31,7 +33,7 @@ export ENGINE_EVENT_ENDPOINT="${ENGINE_BASE_URL}/users/${WILCO_ID}/event"
 
 # Update engine with service account credentials
 
-curl -L -X POST "${ENGINE_EVENT_ENDPOINT}" -H "Content-Type: application/json" --data-raw "{ \"event\": \"gcp_service_account_created\", \"metadata\": {\"credentials\": $stringified_credentials }}"
+curl -L -X POST "${ENGINE_EVENT_ENDPOINT}" -H "Content-Type: application/json" --data-raw "{ \"event\": \"gcp_service_account_created\", \"metadata\": {\"credentials\": $stringified_credentials, \"project_id\": \"$PROJECT_ID\" }}"
 
 export GOOGLE_APPLICATION_CREDENTIALS=$KEY_FILE_PATH
 
